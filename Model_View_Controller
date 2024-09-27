@@ -1,0 +1,54 @@
+using System;
+
+// Модель (Model)
+public class Product
+{
+    public string Name { get; set; }
+    public decimal Price { get; set; }
+}
+
+// Представлення (View)
+public class ProductView
+{
+    public void ShowProduct(Product product)
+    {
+        Console.WriteLine($"Назва: {product.Name}, Ціна: {product.Price} грн");
+    }
+}
+
+// Контролер (Controller)
+public class ProductController
+{
+    private Product _product;
+    private ProductView _view;
+
+    public ProductController(Product product, ProductView view)
+    {
+        _product = product;
+        _view = view;
+    }
+
+    public void UpdateProduct(string name, decimal price)
+    {
+        _product.Name = name;
+        _product.Price = price;
+        _view.ShowProduct(_product);
+    }
+}
+
+// Головна програма (Main)
+class Program
+{
+    static void Main()
+    {
+        Product product = new Product();
+        ProductView view = new ProductView();
+        ProductController controller = new ProductController(product, view);
+
+        // Виводимо початкові дані
+        controller.UpdateProduct("Ноутбук", 15000);
+
+        // Оновлюємо дані продукту
+        controller.UpdateProduct("Смартфон", 8000);
+    }
+}
